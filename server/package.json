@@ -1,0 +1,21 @@
+{
+  "name": "exercise_tracker",
+  "version": "1.0.0",
+  "description": "Built using MySQL for database, NodeJS and Express for Backend and VueJS for Frontend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "ian Phua",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
