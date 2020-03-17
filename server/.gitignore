@@ -1,0 +1,5 @@
+# doenv environmental files
+.env
+
+# dependencies directories
+node_modules/
