@@ -26,7 +26,7 @@ const Exercise = ExerciseModel(sequelize, Sequelize);
 User.belongsToMany(Exercise, { through: UserExercise, unique: false })
 Exercise.belongsToMany(User, { through: UserExercise, unique: false })
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   console.log('Database and table created')
 });
 

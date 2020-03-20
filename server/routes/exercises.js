@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
 
 // GET specific Exercise
 router.route('/:id').get((req, res) => {
-    Exercise.findOne({ where: { id: req.params.id } })
+    Exercise.findByPk(req.params.id)
             .then(exercise => res.json(exercise))
             .catch(err => res.status(400).json('Error' + err))
 });
@@ -22,27 +22,35 @@ router.route('/add').post((req, res) => {
     const duration = Number(req.body.duration);
     const date = Date.parse(req.body.date);
 
-    Exercise.create({username, description, duration, date})
-            .then(() => res.json('Created!'))
-            .catch(err => res.status(400).json('Error' + err))
+    const newExercise = new Exercise({username, description, duration, date})
+
+    newExercise.save()
+                .then(() => res.json('Created!'))
+                .catch(err => res.status(400).json('Error' + err))
 });
 
 // UPDATE Exercise
 router.route('/update/:id').post((req, res) => {
-    Exercise.findOne({ where: { id: req.params.id } })
+    Exercise.findByPk(req.params.id)
             .then(exercise => {
                 exercise.username = req.body.username,
                 exercise.description = req.body.description,
                 exercise.duration = req.body.duration,
                 exercise.date = req.body.date
+
+                exercise.save()
+                        .then(() => res.json('Exercise updated!'))
+                        .catch(err => res.status(400).json('Error ' + err))
             })
             .catch(err => res.status(400).json('Error' + err))
 });
 
 //  DELETE Exercise
 router.route('/:id').delete((req, res) => {
-    Exercise.findOne({ where: { id: req.params.id } })
-    .then(() => res.json('Exercise Deleted!'))
+    Exercise.findByPk(req.params.id)
+    .then(exercise => exercise.destroy()
+                              .then(() => res.json('Exercise deleted!'))
+                              .catch(err => res.status(400).json('Error ' + err)))
     .catch(err => res.status(400).json('Error' + err))
 });
 

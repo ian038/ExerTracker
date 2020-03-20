@@ -9,10 +9,10 @@ app.use(express.json());
 
 // Connect to routes
 const exerciseRouter = require('./routes/exercises');
-// const userRouter = require('./routes/users');
+const userRouter = require('./routes/users');
 
 app.use('/exercises', exerciseRouter);
-// app.use('/users', userRouter);
+app.use('/users', userRouter);
 
 const port = process.env.PORT || 5000;
 
