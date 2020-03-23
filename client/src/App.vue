@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-content>
-      <Navbar msg="ExerTracker"/>
+      <Dashboard/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navbar from './components/navbar';
+import Dashboard from './components/Dashboard';
 
 export default {
   name: 'App',
 
   components: {
-    Navbar,
+    Dashboard,
   },
 
   data: () => ({
