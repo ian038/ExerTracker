@@ -20,14 +20,12 @@
     </v-app-bar>
       <v-navigation-drawer v-model="drawer" app>
         <v-list>
-          <v-list-item-group v-model="item" color="primary">
+          <v-list-item-group color="primary">
           <v-list-item v-for="item in items" :key="item.id" :to="item.link">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
-            <v-list-contents>
-              <v-list-item-title v-text="item.name"></v-list-item-title>
-            </v-list-contents>
+            <v-list-item-title v-text="item.name"></v-list-item-title>
           </v-list-item>
         </v-list-item-group>
         </v-list>
@@ -43,8 +41,8 @@
       drawer: false,
       links: [
         { id: 1, name: 'Exercises', link: '/' },
-        { id: 2, name: 'Create Exercise', link: '/create' },
-        { id: 3, name: 'Create User', link: '/user' }
+        { id: 2, name: 'Create Exercise Log', link: '/create' },
+        { id: 3, name: 'Create Users', link: '/user' }
       ],
       items: [
         { id: 1, name: 'Home', icon: 'mdi-home', link: '/' },
