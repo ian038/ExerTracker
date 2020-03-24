@@ -1,7 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="grey lighten-4">
+    <Dashboard/>
     <v-content>
-      <Dashboard/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
