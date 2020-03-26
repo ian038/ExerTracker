@@ -4,7 +4,7 @@
       <v-form ref="form" lazy-validation class="px-3">
         <v-text-field v-model="username" label="Username" :rules="usernameRules"></v-text-field>
         <v-text-field v-model="description" label="Description" :rules="descriptionRules"></v-text-field>
-        <v-text-field v-model="duration" label="Duration" :rules="durationRules"></v-text-field>
+        <v-text-field v-model="duration" label="Duration (in minutes)" :rules="durationRules"></v-text-field>
         <v-menu
           transition="scale-transition"
           offset-y
@@ -34,7 +34,7 @@ import axios from 'axios';
 export default {
     data: vm => {
         return {
-            username:'',
+            username: '',
             usernameRules: [
                 v => !!v || 'Username is required'
             ],
