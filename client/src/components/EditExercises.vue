@@ -51,8 +51,8 @@ export default {
             loading: false
         }
     },
-    mounted() {
-        axios.get('http://localhost:5000/exercises/' + this.props.match.params.id)
+    created(id) {
+        axios.get('http://localhost:5000/exercises/' + id)
             .then(response => {
                 this.username = response.data.username,
                 this.description = response.data.description,
@@ -82,7 +82,7 @@ export default {
                     duration: this.duration,
                     date: this.date
                 }
-                axios.post('http://localhost:5000/exercises/update/' + this.props.params.match.id, exercise)
+                axios.post('http://localhost:5000/exercises/update/' + this.id, exercise)
                      .then(res => console.log(res.data))
                 window.location = '/'
             }

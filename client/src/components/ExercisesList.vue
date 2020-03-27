@@ -17,7 +17,7 @@
                 <td>{{exercise.description}}</td>
                 <td>{{exercise.duration}}</td>
                 <td>{{exercise.date.substring(0, 10)}}</td>
-                <td><v-btn outlined class="mx-0 mt-3 mb-3" :href="'/edit/' + exercise.id">Edit</v-btn> | <v-btn outlined color="error" class="mx-0 mt-3 mb-3" @click="Delete">Delete</v-btn></td>
+                <td><v-btn outlined class="mx-0 mt-3 mb-3" :href="'/edit/' + exercise.id">Edit</v-btn> | <v-btn outlined color="error" class="mx-0 mt-3 mb-3" @click="Delete(exercise.id)">Delete</v-btn></td>
             </tr>
         </tbody>
     </v-simple-table>
@@ -36,8 +36,9 @@ export default {
     methods: {
         Delete(id) {
             axios.delete('http://localhost:5000/exercises/' + id)
-                 .then(res => console.log(res.data));
+                 .then(res => console.log(res.data))
             this.exercises = this.exercises.filter(el => el._id !==  id)
+            window.location = '/'
         }
     },
     created() {
