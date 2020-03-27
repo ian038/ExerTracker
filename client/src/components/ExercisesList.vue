@@ -38,7 +38,7 @@ export default {
             axios.delete('http://localhost:5000/exercises/' + id)
                  .then(res => console.log(res.data))
             this.exercises = this.exercises.filter(el => el._id !==  id)
-            window.location = '/'
+            window.location = '/home'
         }
     },
     created() {

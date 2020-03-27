@@ -23,7 +23,7 @@
           </template>
           <v-date-picker v-model="date" no-title></v-date-picker>
         </v-menu>
-        <v-btn outlined color="indigo" class="mx-0 mt-3 mb-3" @click="Submit" :loading="loading">Edit exercise</v-btn>
+          <v-btn outlined color="indigo" class="mx-0 mt-3 mb-3" @click="Submit" :loading="loading">Edit exercise</v-btn>
     </v-form>
   </v-card>
 </template>
@@ -34,30 +34,21 @@ import axios from 'axios';
 export default {
     data: vm => {
         return {
-            username:'',
-            usernameRules: [
-                v => !!v || 'Username is required'
-            ],
-            description: '',
-            descriptionRules: [
-                v => !!v || 'Description is required'
-            ],
-            duration: 0,
-            durationRules: [
-                v => !!v || 'Duration is required'
-            ],
-            date: new Date().toISOString().substr(0, 10),
-            dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
-            loading: false
+          username:'', usernameRules: [v => !!v || 'Username is required'],
+          description:'', descriptionRules: [v => !!v || 'Description is required'],
+          duration:0, durationRules: [v => !!v || 'Duration is required'],
+          date: new Date().toISOString().substr(0, 10),
+          dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+          loading: false
         }
     },
-    created(id) {
-        axios.get('http://localhost:5000/exercises/' + id)
+    created() {
+        axios.get('http://localhost:5000/exercises/' +  this.$route.params.id)
             .then(response => {
                 this.username = response.data.username,
                 this.description = response.data.description,
                 this.duration = response.data.duration,
-                this.date = response.data.date
+                this.date = new Date(response.data.date)
             }).catch(err => console.log(err));     
     },
     computed: {
@@ -72,7 +63,7 @@ export default {
     },
     methods: {
         Submit(e) {
-            e.preventDefault();
+            e.preventDefault()
 
             if(this.$refs.form.validate()) {
                 this.loading = true
@@ -82,9 +73,9 @@ export default {
                     duration: this.duration,
                     date: this.date
                 }
-                axios.post('http://localhost:5000/exercises/update/' + this.id, exercise)
-                     .then(res => console.log(res.data))
-                window.location = '/'
+                axios.post('http://localhost:5000/exercises/update/' + this.$route.params.id, exercise)
+                     .then(res => console.log(res.data));
+                window.location = '/home'
             }
         },
         formatDate (date) {
