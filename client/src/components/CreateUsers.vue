@@ -40,7 +40,7 @@ export default {
                 const user = {
                     username: this.username
                 }
-                axios.post('http://localhost:5000/users/add', user)
+                axios.post('http://localhost:5000/auth/add', user)
                      .then(res => console.log(res.data))
                 window.location = '/home'
             }
