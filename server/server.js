@@ -14,9 +14,12 @@ app.use(cookieParser());
 // Connect to routes
 const exerciseRouter = require('./routes/exercises');
 const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth')
 
 app.use('/exercise', exerciseRouter);
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
+
 
 const port = process.env.PORT || 5000;
 

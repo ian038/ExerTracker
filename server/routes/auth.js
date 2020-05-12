@@ -1,24 +1,13 @@
 const router = require('express').Router();
-const { User } = require('../db/sequelize');
+const { signUp, signIn, signOut } = require('../controllers/auth')
 
-// ADD user
-router.route('/add').post((req, res) => {
-    const username = req.body.username
+// sign up
+router.post('/signup', signUp)
 
-    const newUser = new User({ username })
+// sign in
+router.post('/signin', signIn)
 
-    newUser.save()
-        .then(() => res.json('User created!'))
-        .catch(err => res.status(400).json('Error ' + err))
-});
-
-// DELETE user
-router.route('/:id').delete((req, res) => {
-    User.findByPk(req.params.id)
-    .then(user => user.destroy()
-                              .then(() => res.json('User deleted!'))
-                              .catch(err => res.status(400).json('Error ' + err)))
-    .catch(err => res.status(400).json('Error' + err))
-});
+// sign out
+router.get('/signout', signOut)
 
 module.exports = router

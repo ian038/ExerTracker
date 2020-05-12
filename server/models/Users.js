@@ -24,22 +24,20 @@ module.exports = (sequelize, type) => {
         email: {
             type: type.STRING,
             unique: true,
-            allowNull: false
-        }
-    }, {
-        hooks: {
-            // hash password before saving to database
-            beforeCreate: user => {
-                user.salt = bcrypt.genSaltSync(SALT_WORK_FACTOR)
-                user.password = bcrypt.hashSync(user.password, user.salt)
-            }
-        },
-        // validate password
-        instanceMethods: {
-            validatePassword: function(password) {
-                return bcrypt.compare(password, this.password)
+            allowNull: false,
+            validate: {
+                isEmail: true
             }
         }
     })
+    // hash password before saving to database
+    User.beforeCreate(user => {
+        user.salt = bcrypt.genSaltSync(SALT_WORK_FACTOR)
+        user.password = bcrypt.hashSync(user.password, user.salt)
+    })
+    // validate password
+    User.prototype.validatePassword = function(password) {
+        return bcrypt.compare(password, this.password)
+    }
     return User
 }
