@@ -52,7 +52,7 @@ export default {
         }
     },
     created() {
-        axios.get('http://localhost:5000/exercise/home')
+        axios.get('http://localhost:5000/exercise/')
             .then(response => this.exercises = response.data
             ).catch(err => console.log(err))
     },

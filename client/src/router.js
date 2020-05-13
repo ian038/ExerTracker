@@ -6,19 +6,23 @@ import SignUp from './components/SignUp.vue';
 import SignIn from './components/SignIn.vue';
 import EditExercises from './components/EditExercises.vue';
 import ExercisesList from './components/ExercisesList.vue';
+import Landing from './components/Landing.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/home', component: ExercisesList },
-    { path: '/edit/:id', component: EditExercises },
-    { path: '/create', component: CreateExercises },
+    { path: '/home', component: ExercisesList, meta: { requiresAuth: true } },
+    { path: '/edit/:id', component: EditExercises, meta: { requiresAuth: true } },
+    { path: '/create', component: CreateExercises, meta: { requiresAuth: true } },
     { path: '/signup', component: SignUp },
     { path: '/signin', component: SignIn },
+    { path: '/', component: Landing, meta: { guest: true } }
 ]
 
-export default new VueRouter({
-    mode:'history',
+const router = new VueRouter({
+    mode: 'history',
     routes
-});
+})
 
+
+export default router

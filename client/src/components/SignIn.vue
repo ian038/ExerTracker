@@ -1,6 +1,6 @@
 <template>
     <v-app>
-    <Dashboard />
+    <Landing />
     <v-container>
       <v-card class="mx-auto" max-width="600px">
       <v-card-title>Sign In</v-card-title>
@@ -16,11 +16,11 @@
 
 <script>
 import axios from 'axios';
-import Dashboard from './Dashboard';
+import Landing from './Landing';
 
 export default {
-      components: {
-        Dashboard
+    components: {
+        Landing
     },
     data: () => {
         return {
