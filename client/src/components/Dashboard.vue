@@ -42,10 +42,11 @@
       links: [
         { id: 1, name: 'Exercises', link: '/home' },
         { id: 2, name: 'Create Exercise Log', link: '/create' },
-        { id: 3, name: 'Create Users', link: '/user' }
+        { id: 3, name: 'Sign Up', link: '/signup' },
+        { id: 4, name: 'Sign In', link: '/signin' }
       ],
       items: [
-        { id: 1, name: 'Home', icon: 'mdi-home', link: '/home' },
+        { id: 1, name: 'Exercises', icon: 'mdi-home', link: '/home' },
         { id: 2, name: 'Sign Out', icon: 'exit_to_app', link: '/'}
       ]
     }),

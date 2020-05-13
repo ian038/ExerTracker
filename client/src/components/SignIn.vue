@@ -3,10 +3,9 @@
     <Dashboard />
     <v-container>
       <v-card class="mx-auto" max-width="600px">
-      <v-card-title>Sign Up</v-card-title>
+      <v-card-title>Sign In</v-card-title>
       <v-form ref="form" lazy-validation class="px-3">
         <v-text-field v-model="username" label="Username" :rules="usernameRules"></v-text-field>
-        <v-text-field v-model="email" label="Email" :rules="emailRules"></v-text-field>
         <v-text-field v-model="password" label="Password" :rules="passwordRules" :type="show1 ? 'text' : 'password'" ></v-text-field>
         <v-btn outlined color="indigo" class="mx-0 mt-3 mb-3" @click="Submit" :loading="loading">Submit</v-btn>
     </v-form>
@@ -19,7 +18,6 @@
 import axios from 'axios';
 import Dashboard from './Dashboard';
 
-
 export default {
       components: {
         Dashboard
@@ -29,10 +27,6 @@ export default {
             username:'',
             usernameRules: [
                 v => !!v || 'Username is required'
-            ],
-            email:'',
-            emailRules: [
-                v => !!v || 'Email is required'
             ],
             show1: false,
             password:'',
@@ -50,12 +44,11 @@ export default {
                 this.loading = true
                 const user = {
                     username: this.username,
-                    email: this.email,
                     password: this.password
                 }
                axios({
                     method: 'post',
-                    url: 'http://localhost:5000/auth/signup',
+                    url: 'http://localhost:5000/auth/signin',
                     headers: {
                         Accept: '*/*',
                         'Content-Type': 'application/json'
@@ -63,9 +56,11 @@ export default {
                     data: user
                 })
                 .then(res => {
-                    if(res.data === 'User created!') {
-                        this.$router.push('/signin')
-                    } 
+                    localStorage.setItem('user', res.data.user)
+                    localStorage.setItem('jwt', res.data.token)
+                    if(localStorage.getItem('user') && localStorage.getItem('jwt') !== undefined) {
+                        this.$router.push('/home')
+                    }
                 })
                 .catch(err => console.log(err))
             }

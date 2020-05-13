@@ -45,14 +45,14 @@ export default {
     },
     methods: {
         Delete(id) {
-            axios.delete('http://localhost:5000/exercises/' + id)
+            axios.delete('http://localhost:5000/exercise/' + id)
                  .then(res => console.log(res.data))
             this.exercises = this.exercises.filter(el => el._id !==  id)
             window.location = '/home'
         }
     },
     created() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('http://localhost:5000/exercise/home')
             .then(response => this.exercises = response.data
             ).catch(err => console.log(err))
     },

@@ -73,9 +73,9 @@ export default {
                     duration: this.duration,
                     date: this.date
                 }
-                axios.post('http://localhost:5000/exercises/update/' + this.$route.params.id, exercise)
+                axios.post('http://localhost:5000/exercise/update/' + this.$route.params.id, exercise)
                      .then(res => console.log(res.data));
-                window.location = '/home'
+                this.$router.push('/home')
             }
         },
         formatDate (date) {
