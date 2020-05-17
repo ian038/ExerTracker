@@ -1,57 +1,19 @@
 const router = require('express').Router();
-const { Exercise } = require('../db/sequelize');
+const { exerciseById, list, create, read, update, destroy } = require('../controllers/exercise')
+const { requireSignIn, isAuth } = require('../controllers/auth')
+const { userById } = require('../controllers/user')
 
 //  GET all Exercises
-router.route('/').get((req, res) => {
-    Exercise.findAll()
-            .then(exercises => res.json(exercises))
-            .catch(err => res.status(400).json('Error' + err))
-});
+router.get('/', list)
 
-// GET specific Exercise
-router.route('/:id').get((req, res) => {
-    Exercise.findByPk(req.params.id)
-            .then(exercise => res.json(exercise))
-            .catch(err => res.status(400).json('Error' + err))
-});
+//  CRUD operations
+router.post('/create/:userId', requireSignIn, isAuth, create)
+router.get('/:exerciseId', read)
+router.put('/update/:userId/:exerciseId', requireSignIn, isAuth, update)
+router.delete('/delete/:userId/:exerciseId', requireSignIn, isAuth, destroy)
 
-//  ADD new Exercise
-router.route('/add').post((req, res) => {
-    const username = req.body.username;
-    const description = req.body.description;
-    const duration = Number(req.body.duration);
-    const date = Date.parse(req.body.date);
 
-    const newExercise = new Exercise({username, description, duration, date})
-
-    newExercise.save()
-                .then(() => res.json('Created!'))
-                .catch(err => res.status(400).json('Error' + err))
-});
-
-// UPDATE Exercise
-router.route('/update/:id').post((req, res) => {
-    Exercise.findByPk(req.params.id)
-            .then(exercise => {
-                exercise.username = req.body.username,
-                exercise.description = req.body.description,
-                exercise.duration = req.body.duration,
-                exercise.date = req.body.date
-
-                exercise.save()
-                        .then(() => res.json('Exercise updated!'))
-                        .catch(err => res.status(400).json('Error ' + err))
-            })
-            .catch(err => res.status(400).json('Error' + err))
-});
-
-//  DELETE Exercise
-router.route('/:id').delete((req, res) => {
-    Exercise.findByPk(req.params.id)
-    .then(exercise => exercise.destroy()
-                              .then(() => res.json('Exercise deleted!'))
-                              .catch(err => res.status(400).json('Error ' + err)))
-    .catch(err => res.status(400).json('Error' + err))
-});
+router.param('exerciseId', exerciseById)
+router.param('userId', userById)
 
 module.exports = router;

@@ -1,31 +1,10 @@
 const router = require('express').Router();
-const { User } = require('../db/sequelize');
+const { requireSignIn, isAuth } = require('../controllers/auth')
+const { userById, read } = require('../controllers/user')
 
-// GET all users 
-router.route('/').get((req, res) => {
-    User.findAll()
-        .then(users => res.json(users))
-        .catch(err => res.status(400).json('Error ' + err))
-});
+// Get specific user
+router.get('/:userId' , requireSignIn, isAuth, read)
 
-// ADD user
-router.route('/add').post((req, res) => {
-    const username = req.body.username
-
-    const newUser = new User({ username })
-
-    newUser.save()
-        .then(() => res.json('User created!'))
-        .catch(err => res.status(400).json('Error ' + err))
-});
-
-// DELETE user
-router.route('/:id').delete((req, res) => {
-    User.findByPk(req.params.id)
-    .then(user => user.destroy()
-                              .then(() => res.json('User deleted!'))
-                              .catch(err => res.status(400).json('Error ' + err)))
-    .catch(err => res.status(400).json('Error' + err))
-});
+router.param('userId', userById)
 
 module.exports = router

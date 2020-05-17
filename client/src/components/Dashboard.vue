@@ -10,7 +10,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn class="error--text" light>
+      <v-btn class="error--text" light @click="Signout">
         <span>Sign Out</span>
         <v-icon class="material-icons" right>exit_to_app</v-icon>
       </v-btn>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
   export default {
     name: 'Dashboard',
 
@@ -41,13 +43,24 @@
       drawer: false,
       links: [
         { id: 1, name: 'Exercises', link: '/home' },
-        { id: 2, name: 'Create Exercise Log', link: '/create' },
-        { id: 3, name: 'Create Users', link: '/user' }
+        { id: 2, name: 'Create Exercise Log', link: '/create' }
       ],
       items: [
-        { id: 1, name: 'Home', icon: 'mdi-home', link: '/home' },
+        { id: 1, name: 'Exercises', icon: 'mdi-home', link: '/home' },
         { id: 2, name: 'Sign Out', icon: 'exit_to_app', link: '/'}
       ]
     }),
+    methods: {
+      Signout() {
+        if(typeof window !== 'undefined') {
+          localStorage.removeItem('jwt')
+          localStorage.removeItem('user')
+          axios.get('http://localhost:5000/auth/signout')
+               .then(res => console.log(res))
+               .catch(err => console.log(err))
+          return this.$router.push('/')
+       }
+      }
+    }
   }
 </script>

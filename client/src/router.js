@@ -2,9 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import CreateExercises from './components/CreateExercises.vue';
-import CreateUsers from './components/CreateUsers.vue';
+import SignUp from './components/SignUp.vue';
+import SignIn from './components/SignIn.vue';
 import EditExercises from './components/EditExercises.vue';
 import ExercisesList from './components/ExercisesList.vue';
+import Landing from './components/Landing.vue';
 
 Vue.use(VueRouter);
 
@@ -15,8 +17,10 @@ const routes = [
     { path: '/user', component: CreateUsers },
 ]
 
-export default new VueRouter({
-    mode:'history',
+const router = new VueRouter({
+    mode: 'history',
     routes
-});
+})
 
+
+export default router
