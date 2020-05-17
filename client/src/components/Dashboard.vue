@@ -40,13 +40,13 @@
     data: () => ({
       drawer: false,
       links: [
-        { id: 1, name: 'Exercises', link: '/' },
+        { id: 1, name: 'Exercises', link: '/home' },
         { id: 2, name: 'Create Exercise Log', link: '/create' },
         { id: 3, name: 'Create Users', link: '/user' }
       ],
       items: [
-        { id: 1, name: 'Home', icon: 'mdi-home', link: '/' },
-        { id: 2, name: 'Sign Out', icon: 'exit_to_app', link: '/user'}
+        { id: 1, name: 'Home', icon: 'mdi-home', link: '/home' },
+        { id: 2, name: 'Sign Out', icon: 'exit_to_app', link: '/'}
       ]
     }),
   }
