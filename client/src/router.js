@@ -11,12 +11,10 @@ import Landing from './components/Landing.vue';
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/home', component: ExercisesList, meta: { requiresAuth: true } },
-    { path: '/edit/:id', component: EditExercises, meta: { requiresAuth: true } },
-    { path: '/create', component: CreateExercises, meta: { requiresAuth: true } },
-    { path: '/signup', component: SignUp },
-    { path: '/signin', component: SignIn },
-    { path: '/', component: Landing, meta: { guest: true } }
+    { path: '/', component: ExercisesList },
+    { path: '/edit/:id', component: EditExercises },
+    { path: '/create', component: CreateExercises },
+    { path: '/user', component: CreateUsers },
 ]
 
 const router = new VueRouter({
