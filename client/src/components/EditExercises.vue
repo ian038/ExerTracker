@@ -42,15 +42,6 @@ export default {
           loading: false
         }
     },
-    created() {
-        axios.get('http://localhost:5000/exercises/' +  this.$route.params.id)
-            .then(response => {
-                this.username = response.data.username,
-                this.description = response.data.description,
-                this.duration = response.data.duration,
-                this.date = new Date(response.data.date)
-            }).catch(err => console.log(err));     
-    },
     computed: {
       formattedDate () {
         return this.formatDate(this.date)
@@ -65,7 +56,7 @@ export default {
         Submit(e) {
             e.preventDefault()
 
-            if(this.$refs.form.validate()) {
+            if(this.$refs.form.validate() && typeof window !== 'undefined') {
                 this.loading = true
                 const exercise = {
                     username: this.username,
@@ -73,9 +64,23 @@ export default {
                     duration: this.duration,
                     date: this.date
                 }
-                axios.post('http://localhost:5000/exercise/update/' + this.$route.params.id, exercise)
-                     .then(res => console.log(res.data));
-                this.$router.push('/home')
+                const auth = JSON.parse(localStorage.getItem('jwt'))
+                const { user, token } = auth.data
+
+                axios({
+                  method: 'put',
+                  url: `http://localhost:5000/exercise/update/${user.id}/${this.$route.params.id}`,
+                  headers: {
+                    Accept: '*/*',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                  },
+                  data: exercise
+                }).then(res => {
+                  if(res) {
+                    this.$router.push('/home')
+                  }
+                })
             }
         },
         formatDate (date) {

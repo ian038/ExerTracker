@@ -16,11 +16,13 @@ exports.signUp = (req, res) => {
 
 exports.signIn = (req, res, next) => {
     passport.authenticate('local', (error, user) => {
+        console.log(user)
         if(error || !user) {
             return res.status(400).json({ error: 'User is not registered. Please sign up.' })
         }
         // pass in session false to not save user info
         req.logIn(user, { session: false }, (error) => {
+            console.log(user)
             if(error) {
                 return res.status(401).json(error);
             }

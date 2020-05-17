@@ -56,9 +56,8 @@ export default {
                     data: user
                 })
                 .then(res => {
-                    localStorage.setItem('user', res.data.user)
-                    localStorage.setItem('jwt', res.data.token)
-                    if(localStorage.getItem('user') && localStorage.getItem('jwt') !== undefined) {
+                    localStorage.setItem('jwt', JSON.stringify(res))
+                    if(localStorage.getItem('jwt') !== undefined) {
                         this.$router.push('/home')
                     }
                 })

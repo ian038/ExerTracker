@@ -54,7 +54,6 @@ import axios from 'axios'
       Signout() {
         if(typeof window !== 'undefined') {
           localStorage.removeItem('jwt')
-          localStorage.removeItem('user')
           axios.get('http://localhost:5000/auth/signout')
                .then(res => console.log(res))
                .catch(err => console.log(err))

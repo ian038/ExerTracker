@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Router from 'vue-router';
 
 import CreateExercises from './components/CreateExercises.vue';
 import SignUp from './components/SignUp.vue';
@@ -8,18 +8,44 @@ import EditExercises from './components/EditExercises.vue';
 import ExercisesList from './components/ExercisesList.vue';
 import Landing from './components/Landing.vue';
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 const routes = [
-    { path: '/', component: ExercisesList },
-    { path: '/edit/:id', component: EditExercises },
-    { path: '/create', component: CreateExercises },
-    { path: '/user', component: CreateUsers },
+    { path: '/', component: Landing },
+    { path: '/signin', component: SignIn, meta: { guest: true } },
+    { path: '/signup', component: SignUp, meta: { guest: true } },
+    { path: '/home', component: ExercisesList, meta: { requiresAuth: true } },
+    { path: '/edit/:id', component: EditExercises, meta: { requiresAuth: true } },
+    { path: '/create', component: CreateExercises, meta: { requiresAuth: true } }
 ]
 
-const router = new VueRouter({
+const router = new Router({
     mode: 'history',
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if(localStorage.getItem('jwt') == null) {
+            next({
+                path: '/signin',
+                params: { nextUrl: to.fullPath }
+            })
+        } else {
+            next()
+        }
+    } else if(to.matched.some(record => record.meta.requiresAuth)) {
+        if(localStorage.getItem('jwt') == null) {
+            next()
+        } else {
+            next({
+                path: '/home',
+                params: { nextUrl: to.fullPath }
+            })
+        }
+    } else {
+        next()
+    }
 })
 
 

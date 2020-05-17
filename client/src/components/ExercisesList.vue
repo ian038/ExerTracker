@@ -45,10 +45,24 @@ export default {
     },
     methods: {
         Delete(id) {
-            axios.delete('http://localhost:5000/exercise/' + id)
-                 .then(res => console.log(res.data))
-            this.exercises = this.exercises.filter(el => el._id !==  id)
-            window.location = '/home'
+            if(typeof window !== 'undefined') {
+                const auth = JSON.parse(localStorage.getItem('jwt'))
+                const { user, token } = auth.data
+                
+                axios({
+                    method: 'delete',
+                    url: `http://localhost:5000/exercise/delete/${user.id}/${id}`,
+                    headers: {
+                    Accept: '*/*',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                  }
+                }).then(res => {
+                    if(res) {
+                        window.location.reload(true)
+                    }
+                })
+            }
         }
     },
     created() {

@@ -75,7 +75,7 @@ export default {
         Submit(e) {
             e.preventDefault();
 
-            if(this.$refs.form.validate()) {
+            if(this.$refs.form.validate() && typeof window !== 'undefined') {
                 this.loading = true
                 const exercise = {
                     username: this.username,
@@ -83,9 +83,23 @@ export default {
                     duration: this.duration,
                     date: this.date
                 }
-                axios.post('http://localhost:5000/exercises/add', exercise)
-                     .then(res => console.log(res.data))
-                window.location = '/home'
+                const auth = JSON.parse(localStorage.getItem('jwt'))
+                const { user, token } = auth.data
+
+                axios({
+                  method: 'post',
+                  url: `http://localhost:5000/exercise/create/${user.id}`,
+                  headers: {
+                    Accept: '*/*',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                  },
+                  data: exercise
+                }).then(res => {
+                  if(res) {
+                    this.$router.push('/home')
+                  }
+                })
             }
         },
         formatDate (date) {
