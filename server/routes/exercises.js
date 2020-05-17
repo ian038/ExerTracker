@@ -4,7 +4,7 @@ const { requireSignIn, isAuth } = require('../controllers/auth')
 const { userById } = require('../controllers/user')
 
 //  GET all Exercises
-router.get('/home', list)
+router.get('/', list)
 
 //  CRUD operations
 router.post('/create/:userId', requireSignIn, isAuth, create)
