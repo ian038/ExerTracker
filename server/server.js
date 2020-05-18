@@ -23,6 +23,11 @@ app.use('/auth', authRouter);
 
 const port = process.env.PORT || 5000;
 
+// Deploy frontend app 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'))
+}
+
 app.listen(port, () => {
     console.log('running on ' + port);
 })

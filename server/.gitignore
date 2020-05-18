@@ -1,5 +1,2 @@
-# doenv environmental files
-.env
-
-# dependencies directories
-node_modules/
+#No modules
+node_modules
