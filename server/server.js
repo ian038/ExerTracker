@@ -16,9 +16,9 @@ const exerciseRouter = require('./routes/exercises');
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth')
 
-app.use('/api/exercise', exerciseRouter);
-app.use('/api/user', userRouter);
-app.use('/api/auth', authRouter);
+app.use('/exercise', exerciseRouter);
+app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 
 const port = process.env.PORT || 5000;
@@ -26,7 +26,7 @@ const port = process.env.PORT || 5000;
 // Handle production 
 if(process.env.NODE_ENV === 'production') {
     // static folder
-    app.use(express.static(__dirname + '/public'))
+    app.use(express.static(__dirname + '/public/'))
     // handle SPA
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
 }

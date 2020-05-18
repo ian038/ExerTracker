@@ -54,7 +54,7 @@ export default {
                 }
                axios({
                     method: 'post',
-                    url: 'http://localhost:5000/api/auth/signup',
+                    url: 'http://localhost:5000/auth/signup',
                     headers: {
                         Accept: '*/*',
                         'Content-Type': 'application/json'
