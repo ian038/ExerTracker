@@ -20,7 +20,6 @@ app.use('/exercise', exerciseRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 
-
 const port = process.env.PORT || 5000;
 
 // Handle production 
