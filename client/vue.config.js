@@ -3,13 +3,7 @@ const path = require('path')
 module.exports = {
   devServer: {
     proxy: {
-      '/exercise': {
-        target: 'http://localhost:5000'
-      },
-      '/user': {
-        target: 'http://localhost:5000'
-      },
-      '/auth': {
+      '/api': {
         target: 'http://localhost:5000'
       }
     }
