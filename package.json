@@ -4,9 +4,6 @@
   "description": "Built using MySQL for database, NodeJS and Express for Backend and VueJS for Frontend",
   "main": "server.js",
   "scripts": {
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server/server.js",
     "server": "nodemon server/server.js"
   },
