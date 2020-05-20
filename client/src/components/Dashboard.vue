@@ -54,7 +54,7 @@ import axios from 'axios'
       Signout() {
         if(typeof window !== 'undefined') {
           localStorage.removeItem('jwt')
-          axios.get('http://localhost:5000/api/auth/signout')
+          axios.get('api/auth/signout')
                .then(res => console.log(res))
                .catch(err => console.log(err))
           return this.$router.push('/')

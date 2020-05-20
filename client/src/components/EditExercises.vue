@@ -69,7 +69,7 @@ export default {
 
                 axios({
                   method: 'put',
-                  url: `http://localhost:5000/api/exercise/update/${user.id}/${this.$route.params.id}`,
+                  url: `api/exercise/update/${user.id}/${this.$route.params.id}`,
                   headers: {
                     Accept: '*/*',
                     'Content-Type': 'application/json',

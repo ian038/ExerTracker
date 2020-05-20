@@ -88,7 +88,7 @@ export default {
 
                 axios({
                   method: 'post',
-                  url: `http://localhost:5000/api/exercise/create/${user.id}`,
+                  url: `api/exercise/create/${user.id}`,
                   headers: {
                     Accept: '*/*',
                     'Content-Type': 'application/json',

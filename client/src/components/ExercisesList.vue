@@ -51,7 +51,7 @@ export default {
                 
                 axios({
                     method: 'delete',
-                    url: `http://localhost:5000/api/exercise/delete/${user.id}/${id}`,
+                    url: `api/exercise/delete/${user.id}/${id}`,
                     headers: {
                     Accept: '*/*',
                     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default {
         }
     },
     created() {
-        axios.get('http://localhost:5000/api/exercise/')
+        axios.get('api/exercise/')
             .then(response => this.exercises = response.data
             ).catch(err => console.log(err))
     },
