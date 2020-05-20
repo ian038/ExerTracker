@@ -66,10 +66,11 @@ export default {
                 }
                 const auth = JSON.parse(localStorage.getItem('jwt'))
                 const { user, token } = auth.data
+                console.log(this.$route.params.id)
 
                 axios({
                   method: 'put',
-                  url: `api/exercise/update/${user.id}/${this.$route.params.id}`,
+                  url: `/api/exercise/update/${user.id}/${this.$route.params.id}`,
                   headers: {
                     Accept: '*/*',
                     'Content-Type': 'application/json',
