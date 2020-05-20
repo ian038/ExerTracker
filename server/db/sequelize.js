@@ -6,9 +6,9 @@ const ExerciseModel = require('../models/Exercises')
 require('dotenv').config();
 
 const sequelize = new Sequelize(
-    'dbexertracker',
-    'root',
-    'Angie10280621', {
+    'heroku_73946c36a95b3b6',
+    'b687cade63259a',
+    '4576fac', {
         host: process.env.DB_HOST,
         dialect: 'mysql',
         pool: {
