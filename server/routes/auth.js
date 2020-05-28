@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { signUp, signIn, signOut } = require('../controllers/auth')
+const { userSignUpValidator } = require('../validator')
 
 // sign up
-router.post('/signup', signUp)
+router.post('/signup', userSignUpValidator, signUp)
 
 // sign in
 router.post('/signin', signIn)

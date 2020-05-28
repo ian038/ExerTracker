@@ -5,7 +5,6 @@ module.exports = (passport, localStrategy, jwtStrategy, extractJwt) => {
         usernameField: 'username',
         passwordField: 'password'
     }, (username, password, done) => {
-        console.log(username)
         User.findOne({ where: { username: username } }).then(user => {
             if(!user) {
                 return done(null, false, { message: 'User does not exist' })

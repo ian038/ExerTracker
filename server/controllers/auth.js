@@ -15,16 +15,18 @@ exports.signUp = (req, res) => {
 }
 
 exports.signIn = (req, res, next) => {
+    const { password } = req.body
     passport.authenticate('local', (error, user) => {
-        console.log(user)
         if(error || !user) {
             return res.status(400).json({ error: 'User is not registered. Please sign up.' })
         }
         // pass in session false to not save user info
-        req.logIn(user, { session: false }, (error) => {
-            console.log(user)
+        req.logIn(user, { session: false }, async (error) => {
             if(error) {
                 return res.status(401).json(error);
+            }
+            if(!await user.validatePassword(password)) {
+                return res.status(400).json({ error: 'Username and password does not match' })
             }
         // generate a signed token with contents of user and return it in response
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
