@@ -1,6 +1,15 @@
 <template>
     <v-app>
     <Landing />
+    <v-alert
+      v-if="show"
+      dense
+      outlined
+      type="error"
+      dismissible
+    >
+      {{error}}
+    </v-alert>
     <v-container>
       <v-card class="mx-auto" max-width="600px">
       <v-card-title>Sign In</v-card-title>
@@ -34,7 +43,9 @@ export default {
                 v => !!v || 'Password is required',
                 v => v.length >= 6 || 'Minimum 6 characters'
             ],
-            loading: false
+            loading: false,
+            error: '',
+            show: false
         }
     },
     methods: {
@@ -61,7 +72,13 @@ export default {
                         this.$router.push('/home')
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    if(err) {
+                        this.show = true
+                        this.error = err.response.data.error
+                        this.loading = false
+                    }
+                })
             }
         }
     }
